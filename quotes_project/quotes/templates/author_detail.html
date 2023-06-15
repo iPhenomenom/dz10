@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ author.name }}</h1>
+    <h2>Цитаты:</h2>
+    {% for quote in quotes %}
+        <p>{{ quote.content }}</p>
+    {% empty %}
+        <p>Нет доступных цитат от этого автора.</p>
+    {% endfor %}
+{% endblock %}

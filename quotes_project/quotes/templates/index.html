@@ -3,12 +3,10 @@
 {% block content %}
     <div class="container">
         <h1>Главная страница</h1>
-        <p>Добро пожаловать в наше приложение для цитат!</p>
-
         {% if user.is_authenticated %}
-            <p>Вы вошли как: {{ user.username }}</p>
-            <a href="{% url 'author_create' %}">Добавить автора</a>
-            <a href="{% url 'quote_create' %}">Добавить цитату</a>
+            <p>Добро пожаловать, {{ user.username }}!</p>
+            <p><a href="{% url 'author_create' %}">Добавить автора</a></p>
+            <p><a href="{% url 'quote_create' %}">Добавить цитату</a></p>
             <a href="{% url 'logout' %}">Выйти</a>
         {% else %}
             <a href="{% url 'login' %}">Войти</a>
@@ -18,9 +16,16 @@
         <h2>Последние цитаты</h2>
         <ul>
             {% for quote in quotes %}
-                <li>{{ quote.content }} - {{ quote.author.name }}</li>
+                <li><a href="{% url 'quote_detail' quote.id %}">{{ quote.content }} - {{ quote.author.name }}</a></li>
             {% empty %}
                 <li>Нет доступных цитат.</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Список авторов</h2>
+        <ul>
+            {% for author in authors %}
+                <li><a href="{% url 'author_detail' author.id %}">{{ author.name }}</a></li>
             {% endfor %}
         </ul>
     </div>

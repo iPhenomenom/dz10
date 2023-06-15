@@ -37,6 +37,8 @@ urlpatterns = [
     path('create/quote/', views.create_quote, name='create_quote'),  # Новый путь для создания цитаты
     path('author/create/', views.author_create, name='author_create'),
     path('quote/create/', views.quote_create, name='quote_create'),
+    path('author/<int:author_id>/', views.author_detail, name='author_detail'),
+    path('quote/<int:quote_id>/', views.quote_detail, name='quote_detail'),
 
 ]
 

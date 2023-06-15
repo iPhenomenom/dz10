@@ -1,7 +1,7 @@
 
 
 # Create your views here.
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Author, Quote
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
@@ -55,6 +55,15 @@ def login_view(request):
     else:
         return render(request, 'login.html')
 
+def author_detail(request, author_id):
+    author = get_object_or_404(Author, pk=author_id)
+    quotes = Quote.objects.filter(author=author)
+    return render(request, 'author_detail.html', {'author': author, 'quotes': quotes})
+
+def quote_detail(request, quote_id):
+    quote = get_object_or_404(Quote, pk=quote_id)
+    return render(request, 'quote_detail.html', {'quote': quote})
+
 def logout_view(request):
     logout(request)
     return redirect('index')
@@ -71,7 +80,7 @@ def register_view(request):
     return render(request, 'registration/register.html', {'form': form})
 
 def home_view(request):
-    quotes = Quote.objects.all().order_by('-id')[:10]  # Получить последние 10 цитат
+    quotes = Quote.objects.all()
     return render(request, 'index.html', {'quotes': quotes})
 
 def author_list(request):
