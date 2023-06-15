@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quote List</title>
+</head>
+<body>
+    <h1>Quote List</h1>
+    <ul>
+        {% for quote in quotes %}
+            <li>{{ quote.text }} - {{ quote.author }}</li>
+        {% empty %}
+            <li>No quotes found.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

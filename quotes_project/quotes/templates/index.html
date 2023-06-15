@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>Главная страница</h1>
+        <p>Добро пожаловать в наше приложение для цитат!</p>
+
+        {% if user.is_authenticated %}
+            <p>Вы вошли как: {{ user.username }}</p>
+            <a href="{% url 'author_create' %}">Добавить автора</a>
+            <a href="{% url 'quote_create' %}">Добавить цитату</a>
+            <a href="{% url 'logout' %}">Выйти</a>
+        {% else %}
+            <a href="{% url 'login' %}">Войти</a>
+            <a href="{% url 'register' %}">Зарегистрироваться</a>
+        {% endif %}
+
+        <h2>Последние цитаты</h2>
+        <ul>
+            {% for quote in quotes %}
+                <li>{{ quote.content }} - {{ quote.author.name }}</li>
+            {% empty %}
+                <li>Нет доступных цитат.</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
