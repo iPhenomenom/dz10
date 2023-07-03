@@ -19,6 +19,9 @@ from django.urls import include, path
 from quotes import views
 from quotes.views import add_author, add_quote
 
+
+from django.contrib.auth import views as auth_views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
@@ -39,7 +42,11 @@ urlpatterns = [
     path('quote/create/', views.quote_create, name='quote_create'),
     path('author/<int:author_id>/', views.author_detail, name='author_detail'),
     path('quote/<int:quote_id>/', views.quote_detail, name='quote_detail'),
-
+    # Сброс пароля
+    path('reset-password/', auth_views.PasswordResetView.as_view(), name='password_reset'),
+    path('reset-password/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('reset-password/confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('reset-password/complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 ]
 
 
